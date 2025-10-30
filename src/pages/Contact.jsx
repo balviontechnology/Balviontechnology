@@ -100,7 +100,7 @@ export default function Contact() {
               <div className="flex items-center gap-3 text-gray-700">
                 <MapPin className="text-blue-600" />
                 <span>
-                  Balvion Technologies, Teynampet, Chennai, Tamil Nadu, India
+                  Balvion Technologies, No 106,Dayal street ,Kovundampalayam Coimbatore - 641030, Tamil Nadu, India
                 </span>
               </div>
               <div className="flex items-center gap-3 text-gray-700">
@@ -113,7 +113,7 @@ export default function Contact() {
             <div className="rounded-3xl overflow-hidden shadow-xl border border-gray-100 h-64">
               <iframe
                 title="Balvion Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3890.257912265533!2d80.252769775043!3d13.030645990820205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267dbda92a7c7%3A0x7a14a5dfd4535a41!2sTeynampet%2C%20Chennai!5e0!3m2!1sen!2sin!4v1698168000000!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.9784960402685!2d76.9478074750457!3d11.040238989125008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba858922e250141%3A0xdb9e52acf628fc0f!2s106e%2C%20Dayal%20St%2C%20Themaiyan%20Street%2C%20Koundampalayam%2C%20Coimbatore%2C%20Tamil%20Nadu%20641030!5e0!3m2!1sen!2sin!4v1761841950308!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

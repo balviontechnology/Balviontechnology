@@ -25,7 +25,7 @@ const Footer = () => {
         <div>
           <h2 className="text-xl font-semibold mb-4">Contact</h2>
           <p className="text-gray-400 text-sm">
-            📍 Chennai, Tamil Nadu, India <br />
+            📍No 106, Dayal street, Kovundampalayam Coimbatore - 641030, Tamil Nadu, India <br />
             📧 balvion.tech@gmail.com <br />
             ☎️ +91  8110054916
           </p>
