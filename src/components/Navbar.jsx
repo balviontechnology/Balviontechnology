@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "../assets/logo1-r.png"; // 🖼️ your logo file
+import logo from "../assets/logo2-r.png"; // 🖼️ your logo file
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,10 +36,10 @@ const Navbar = () => {
           href="#hero"
           className="flex items-center gap-2 text-2xl font-bold text-indigo-600"
         >
-         <img
+        <img
   src={logo}
   alt="Company Logo"
-  className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain select-none"
+  className="w-20 h-20 md:w-32 md:h-28 lg:w-40 lg:h-32 object-contain select-none"
   style={{
     imageRendering: "crisp-edges",
     WebkitImageRendering: "crisp-edges",
@@ -47,7 +47,13 @@ const Navbar = () => {
   }}
 />
 
-          <span className="hidden sm:inline">Balvion Technologies</span>
+          <span className="hidden sm:inline text-2xl md:text-3xl font-extrabold tracking-wide text-gray-900">
+  Balvion <span className="text-blue-600">Technologies</span>
+</span>
+
+
+
+
         </a>
 
         {/* Desktop Menu */}
