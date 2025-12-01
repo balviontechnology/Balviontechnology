@@ -27,7 +27,7 @@ export default function Insights() {
       Balvion Robotics Lab<br />
       Atal Tinkering Lab (ATL)<br />
       STEM Innovation & Learning Lab<br />
-      AI, IoT & Automation Lab<br />
+      AI, IoT & Automation Lab
     </p>
   </div>
 ),
