@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import gemImg from "../assets/gem.png";   // change name if needed
+import aimImg from "../assets/AIM.png";   // change name if needed
+
 
 export default function Contact() {
   return (
@@ -125,6 +128,30 @@ export default function Contact() {
           </motion.div>
         </div>
       </div>
+
+  {/* Bottom Images Section */}
+<div className="mt-20 grid md:grid-cols-2 gap-6">
+  {/* Left Image */}
+  <div className="w-full h-64 md:h-80 rounded-3xl overflow-hidden shadow-xl flex items-center justify-center bg-white">
+    <img
+      src={gemImg}
+      alt="Gem Image"
+      className="object-contain w-full h-full p-6"
+    />
+  </div>
+
+  {/* Right Image */}
+  <div className="w-full h-64 md:h-80 rounded-3xl overflow-hidden shadow-xl flex items-center justify-center bg-white">
+    <img
+      src={aimImg}
+      alt="Aim Image"
+      className="object-contain w-full h-full p-6"
+    />
+  </div>
+</div>
+
+
+
     </section>
   );
 }

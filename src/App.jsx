@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 // 🌍 Pages
 import About from "./pages/About";
 import Services from "./pages/Services";
-import Events from "./pages/Events";
+// import Events from "./pages/Events";
 import Insights from "./pages/Insights";
 import Careers from "./pages/Careers";
 import Contact from "./pages/Contact";
@@ -55,9 +55,9 @@ function App() {
         </section>
 
         {/* Events Section */}
-        <section id="events" className="py-20 bg-gray-50">
-          <Events />
-        </section>
+        {/* <section id="events" className="py-20 bg-gray-50"> */}
+          {/* <Events /> */}
+        {/* </section> */}
 
         {/* Insights Section */}
         <section id="insights" className="py-20 bg-white">

@@ -18,9 +18,20 @@ export default function Insights() {
       category: "HR Tech",
     },
     {
-      title: "Bridging Industry and Innovation Through STEM Programs",
+      title: "Innovation Lab platforms",
       date: "Aug 2025",
-      desc: "Empowering the next generation of engineers through industry collaborations and hands-on STEM experiences.",
+      desc: (
+  <div>
+    <p>
+      Center of Excellence (CoE)<br />
+      Balvion Robotics Lab<br />
+      Atal Tinkering Lab (ATL)<br />
+      STEM Innovation & Learning Lab<br />
+      AI, IoT & Automation Lab<br />
+    </p>
+  </div>
+),
+
       icon: <Newspaper className="text-green-500" size={28} />,
       category: "Innovation",
     },
@@ -63,7 +74,7 @@ export default function Insights() {
               <div className="flex justify-center mb-4">{i.icon}</div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">{i.title}</h3>
               <p className="text-gray-600 mb-3">{i.desc}</p>
-              <div className="text-sm text-gray-500">{i.date}</div>
+              {/* <div className="text-sm text-gray-500">{i.date}</div> */}
               <span className="mt-4 inline-block text-sm font-medium text-blue-500 bg-blue-100 rounded-full px-3 py-1">
                 {i.category}
               </span>

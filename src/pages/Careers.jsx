@@ -3,12 +3,7 @@ import { Briefcase, Users, ChevronRight } from "lucide-react";
 
 export default function Careers() {
   const openings = [
-    {
-      title: "HR SERVICES",
-      type: "Full Time • Chennai / Remote",
-      desc: "Comprehensive workforce solutions including placement, compliance, and international staffing support.",
-      icon: <Users className="text-blue-500" size={28} />,
-    },
+    
     {
       title: "STEM Educator (Robotics)",
       type: "Full Time • On-site",
@@ -16,9 +11,15 @@ export default function Careers() {
       icon: <Users className="text-green-500" size={28} />,
     },
     {
-      title: "Creative Designer",
-      type: "Contract • Hybrid",
-      desc: "Design digital campaigns, UI/UX components, and visual assets that reflect creativity and future learning.",
+      title: "HR SERVICES",
+      type: "Full Time • On-site",
+      desc: "Comprehensive workforce solutions including placement, compliance, and international staffing support.",
+      icon: <Users className="text-blue-500" size={28} />,
+    },
+    {
+      title: "Corporate Training",
+      type: "Full Time • On-site",
+      desc: "Upskill teams in leadership, communication, and emerging technologies to boost workplace efficiency.",
       icon: <Briefcase className="text-pink-500" size={28} />,
     },
   ];
@@ -45,9 +46,11 @@ export default function Careers() {
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          We're on a mission to shape the next generation of thinkers, creators,
-          and problem solvers. At Balvion, innovation meets impact — join us and
-          be part of the change.
+         Our Presence Across India – Trusted Partner for Atal Labs
+
+Balvion Technologies is proudly associated with 500+ schools across Pan India as a direct vendor for the Atal Innovation Mission (AIM) under the Atal Tinkering Lab (ATL) program. Through this partnership, we support schools with end-to-end ATL services, including lab setup, equipment supply, technical training, maintenance, curriculum support, and continuous innovation guidance.
+
+Our expertise in robotics, STEM education, and experiential learning enables schools to build a strong innovation culture and empower students with hands-on skills in electronics, robotics, IoT, 3D printing, and AI. By collaborating with institutions nationwide, Balvion Technologies continues to strengthen India’s vision of fostering creativity, problem-solving, and future-ready talent.
         </motion.p>
 
         {/* Job Openings */}

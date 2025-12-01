@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "../assets/logo2-r.png"; // 🖼️ your logo file
+import logo from "../assets/logo2-r.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +18,6 @@ const Navbar = () => {
     { name: "Home", href: "#hero" },
     { name: "About", href: "#about" },
     { name: "Services", href: "#services" },
-    { name: "Events", href: "#events" },
     { name: "Insights", href: "#insights" },
     { name: "Careers", href: "#careers" },
     { name: "Contact", href: "#contact" },
@@ -26,35 +25,43 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-md" : "bg-transparent"
+      className={`fixed w-full z-50 transition-all duration-300 bg-white ${
+        isScrolled ? "shadow-md" : "shadow-none"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        {/* Logo Section */}
-        <a
-          href="#hero"
-          className="flex items-center gap-2 text-2xl font-bold text-indigo-600"
-        >
-        <img
-  src={logo}
-  alt="Company Logo"
-  className="w-20 h-20 md:w-32 md:h-28 lg:w-40 lg:h-32 object-contain select-none"
-  style={{
-    imageRendering: "crisp-edges",
-    WebkitImageRendering: "crisp-edges",
-    msInterpolationMode: "nearest-neighbor",
-  }}
-/>
 
-          <span className="hidden sm:inline text-2xl md:text-3xl font-extrabold tracking-wide text-gray-900">
-  Balvion <span className="text-blue-600">Technologies</span>
-</span>
+       <a href="#hero" className="flex items-center gap-4">
+  <div className="flex items-center gap-4 px-4 py-2 rounded-2xl transition-all duration-300">
 
+    {/* Logo */}
+    <div className="flex items-center justify-center rounded-xl bg-white w-16 h-16 md:w-20 md:h-20 shadow-md">
+      <img
+        src={logo}
+        alt="Company Logo"
+        className="w-1584 h-436 md:w-1584 md:h-436 object-contain drop-shadow-lg"
+      />
+    </div>
 
+    {/* Text */}
+    <div className="flex flex-col leading-none select-none">
+      <span
+        className="text-3xl md:text-4xl font-extrabold font-[Poppins]"
+        style={{ color: "#3edaf0" }}
+      >
+        Balvion
+      </span>
 
+      <span
+        className="text-3xl md:text-4xl font-extrabold font-[Poppins]"
+        style={{ color: "#3edaf0" }}
+      >
+        Technologies
+      </span>
+    </div>
+  </div>
+</a>
 
-        </a>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-8">
@@ -62,9 +69,7 @@ const Navbar = () => {
             <a
               key={link.name}
               href={link.href}
-              className={`text-sm font-medium ${
-                isScrolled ? "text-gray-700 hover:text-indigo-600" : "text-white hover:text-indigo-300"
-              }`}
+              className={`text-sm font-medium text-gray-800 hover:text-indigo-600`}
             >
               {link.name}
             </a>
