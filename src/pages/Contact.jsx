@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
-import gemImg from "../assets/gem.png";   // change name if needed
+import gemImg from "../assets/GEM.jpeg";   // change name if needed
 import aimImg from "../assets/AIM.png";   // change name if needed
 
 
@@ -103,7 +103,7 @@ export default function Contact() {
               <div className="flex items-center gap-3 text-gray-700">
                 <MapPin className="text-blue-600" />
                 <span>
-                  Balvion Technologies, No 106,Dayal street ,Kovundampalayam Coimbatore - 641030, Tamil Nadu, India
+                  Balvion Technologies, no 11, 9/8, Poompukar Nagar Street, VKL Nagar, Thudiyalur, Coimbatore, Tamil Nadu 641034
                 </span>
               </div>
               <div className="flex items-center gap-3 text-gray-700">
@@ -116,7 +116,7 @@ export default function Contact() {
             <div className="rounded-3xl overflow-hidden shadow-xl border border-gray-100 h-64">
               <iframe
                 title="Balvion Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.9784960402685!2d76.9478074750457!3d11.040238989125008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba858922e250141%3A0xdb9e52acf628fc0f!2s106e%2C%20Dayal%20St%2C%20Themaiyan%20Street%2C%20Koundampalayam%2C%20Coimbatore%2C%20Tamil%20Nadu%20641030!5e0!3m2!1sen!2sin!4v1761841950308!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.6080751288005!2d76.9413098!3d11.067982499999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8f728c1cbc9dd%3A0x2c6ffa4e28b7ef8d!2sBalvion%20Technologies!5e0!3m2!1sen!2sin!4v1764609111442!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -132,11 +132,11 @@ export default function Contact() {
   {/* Bottom Images Section */}
 <div className="mt-20 grid md:grid-cols-2 gap-6">
   {/* Left Image */}
-  <div className="w-full h-64 md:h-80 rounded-3xl overflow-hidden shadow-xl flex items-center justify-center bg-white">
+  <div className="w-full h-64 md:h-80 rounded-3xl overflow-hidden shadow-xl">
     <img
       src={gemImg}
       alt="Gem"
-      className="object-contain w-full h-full p-6"
+      className="w-full h-full object-cover"
     />
   </div>
 

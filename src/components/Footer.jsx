@@ -16,7 +16,7 @@ const Footer = () => {
           <h2 className="text-xl font-semibold mb-4">Quick Links</h2>
           <ul className="space-y-2 text-gray-400">
             <li><a href="#services" className="hover:text-white">Our Services</a></li>
-            <li><a href="#events" className="hover:text-white">Technical Workshops</a></li>
+            {/* <li><a href="#events" className="hover:text-white">Technical Workshops</a></li> */}
             <li><a href="#careers" className="hover:text-white">HR Services</a></li>
             <li><a href="#contact" className="hover:text-white">Career Consulting</a></li>
           </ul>
@@ -25,7 +25,7 @@ const Footer = () => {
         <div>
           <h2 className="text-xl font-semibold mb-4">Contact</h2>
           <p className="text-gray-400 text-sm">
-            📍No 106, Dayal street, Kovundampalayam Coimbatore - 641030, Tamil Nadu, India <br />
+            📍no 11, 9/8, Poompukar Nagar Street, VKL Nagar, Thudiyalur, Coimbatore, Tamil Nadu 641034 <br />
             📧 balvion.tech@gmail.com <br />
             ☎️ +91  8110054916
           </p>
