@@ -135,7 +135,7 @@ export default function Contact() {
   <div className="w-full h-64 md:h-80 rounded-3xl overflow-hidden shadow-xl flex items-center justify-center bg-white">
     <img
       src={gemImg}
-      alt="Gem Image"
+      alt="Gem"
       className="object-contain w-full h-full p-6"
     />
   </div>
@@ -144,7 +144,7 @@ export default function Contact() {
   <div className="w-full h-64 md:h-80 rounded-3xl overflow-hidden shadow-xl flex items-center justify-center bg-white">
     <img
       src={aimImg}
-      alt="Aim Image"
+      alt="Aim"
       className="object-contain w-full h-full p-6"
     />
   </div>
