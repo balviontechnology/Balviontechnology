@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "../assets/logo2-r.png";
+import logoName from "../assets/logoname.png"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,22 +44,12 @@ const Navbar = () => {
       />
     </div>
 
-    {/* Text */}
-    <div className="flex flex-col leading-none select-none">
-      <span
-        className="text-3xl md:text-4xl font-extrabold font-[Poppins]"
-        style={{ color: "#3edaf0" }}
-      >
-        Balvion
-      </span>
-
-      <span
-        className="text-3xl md:text-4xl font-extrabold font-[Poppins]"
-        style={{ color: "#3edaf0" }}
-      >
-        Technologies
-      </span>
-    </div>
+     {/* Logo Name Image */}
+  <img
+    src={logoName}
+    alt="Balvion Technologies"
+    className="h-10 w-1584 md:h-14 object-contain"
+  />
   </div>
 </a>
 

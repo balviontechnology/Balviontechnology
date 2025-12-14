@@ -1,20 +1,84 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import gemImg from "../assets/GEM.jpeg";   // change name if needed
 import aimImg from "../assets/AIM.png";   // change name if needed
 
-
 export default function Contact() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [resume, setResume] = useState(null);
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("email", email);
+  formData.append("phone", phone);
+  formData.append("message", message);
+  if (resume) {
+    formData.append("resume", resume);
+  }
+
+  const res = await fetch("http://localhost:5000/api/contact", {
+    method: "POST",
+    body: formData, 
+  });
+
+  const data = await res.json();
+
+  if (data.success) {
+    alert("Message sent successfully!");
+    setName("");
+    setEmail("");
+    setPhone("");
+    setMessage("");
+    setResume(null);
+  } else {
+    alert("Error sending message");
+  }
+};
+
+
   return (
     <section
       id="contact"
       className="relative bg-gradient-to-b from-blue-50 via-white to-blue-100 py-24 overflow-hidden"
     >
-      {/* Decorative glow */}
       <div className="absolute -top-20 -left-20 w-96 h-96 bg-blue-200 opacity-40 blur-3xl rounded-full animate-pulse"></div>
       <div className="absolute -bottom-24 -right-20 w-80 h-80 bg-indigo-200 opacity-40 blur-3xl animate-pulse"></div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
+        
+        {/* CTA Section */}
+        <motion.div
+          className="mt-10 mb-20 bg-gradient-to-r from-blue-600 to-indigo-600 
+                     text-white py-12 px-6 rounded-3xl shadow-2xl"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+        >
+          <h3 className="text-2xl md:text-3xl font-bold mb-3">
+            Can’t find the right role?
+          </h3>
+
+          <p className="text-lg mb-6">
+            We’re always looking for passionate people to join our team.  
+            Drop us your CV and we’ll get in touch!
+          </p>
+
+          {/* <a
+            href="#contact"
+            className="bg-white text-blue-700 px-6 py-3 rounded-full 
+                       font-semibold hover:bg-blue-100 transition"
+          >
+            Send Your Resume
+          </a> */}
+        </motion.div>
+
         <motion.h2
           className="text-4xl md:text-5xl font-extrabold text-gray-900 text-center mb-8"
           initial={{ opacity: 0, y: -20 }}
@@ -34,8 +98,9 @@ export default function Contact() {
           seeking HR services — we’d love to connect and collaborate.
         </motion.p>
 
-        {/* Contact grid */}
+        {/* 2-column layout */}
         <div className="grid md:grid-cols-2 gap-12">
+          
           {/* Left - Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -46,32 +111,50 @@ export default function Contact() {
             <h3 className="text-2xl font-semibold text-gray-800 mb-6">
               Send us a message
             </h3>
-            <form
-              className="flex flex-col gap-5"
-              onSubmit={(e) => e.preventDefault()}
-            >
+
+            <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+              
               <input
                 type="text"
                 placeholder="Your Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
                 required
               />
+
               <input
                 type="email"
                 placeholder="Your Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
                 required
               />
+
               <input
                 type="tel"
                 placeholder="Phone Number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
               />
+
               <textarea
                 placeholder="Your Message"
                 rows="4"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                 className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
               ></textarea>
+
+              {/* Resume Upload */}
+              <input
+                type="file"
+                onChange={(e) => setResume(e.target.files[0])}
+                className="border border-gray-300 rounded-xl px-4 py-3 bg-white"
+              />
+
               <button
                 type="submit"
                 className="bg-blue-600 text-white rounded-xl px-6 py-3 font-semibold hover:bg-blue-700 transition"

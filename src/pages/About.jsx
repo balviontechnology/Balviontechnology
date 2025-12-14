@@ -6,42 +6,71 @@ import about3 from "../assets/hero3.jpg";
 export default function About() {
   return (
     <section id="about" className="relative bg-gray-50 py-24 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-        {/* Left: Animated image collage */}
-        <div className="relative flex justify-center items-center">
-          {/* Base image */}
-          <motion.img
-            src={about1}
-            alt="Robotics Education"
-            className="w-72 md:w-80 rounded-2xl shadow-xl z-30"
-            initial={{ opacity: 0, x: -60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-          />
+      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-start">
 
-          {/* Top overlapping image */}
-          <motion.img
-            src={about2}
-            alt="STEM Learning"
-            className="w-60 md:w-72 rounded-2xl shadow-lg absolute top-10 right-0 md:-right-10 z-20 opacity-90"
-            initial={{ opacity: 0, y: 60 }}
+        {/* LEFT — Vertical Images with Effects */}
+        <div className="flex flex-col items-center gap-10">
+
+          {/* IMAGE 1 */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          />
+            transition={{ duration: 0.6 }}
+            className="group"
+          >
+            <img
+              src={about1}
+              alt="Robotics"
+              className="w-64 md:w-72 rounded-2xl shadow-xl
+              transition-all duration-500 ease-in-out
+              group-hover:scale-105 group-hover:-rotate-1
+              animate-float 
+              group-hover:shadow-[0_0_25px_rgba(56,189,248,0.5)]
+              "
+            />
+          </motion.div>
 
-          {/* Bottom background image */}
-          <motion.img
-            src={about3}
-            alt="HR Services"
-            className="w-52 md:w-64 rounded-2xl shadow-md absolute bottom-0 left-0 md:-left-10 z-10 opacity-80"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          />
+          {/* IMAGE 2 */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="group"
+          >
+            <img
+              src={about2}
+              alt="STEM"
+              className="w-64 md:w-72 rounded-2xl shadow-xl
+              transition-all duration-500
+              group-hover:scale-105 group-hover:rotate-1
+              animate-float
+              group-hover:shadow-[0_0_25px_rgba(56,189,248,0.5)]
+              "
+            />
+          </motion.div>
+
+          {/* IMAGE 3 */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="group"
+          >
+            <img
+              src={about3}
+              alt="HR Services"
+              className="w-64 md:w-72 rounded-2xl shadow-xl
+              transition-all duration-500
+              group-hover:scale-105 group-hover:-rotate-1
+              animate-float
+              group-hover:shadow-[0_0_25px_rgba(56,189,248,0.5)]
+              "
+            />
+          </motion.div>
         </div>
 
-        {/* Right: Text content */}
-        <div className="relative z-20">
+        {/* RIGHT — Text Content */}
+        <div>
           <motion.h2
             className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6"
             initial={{ opacity: 0, y: -20 }}
@@ -55,13 +84,12 @@ export default function About() {
             className="text-lg text-gray-700 leading-relaxed mb-6"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+            transition={{ duration: 0.8 }}
           >
-            <strong>Balvion</strong> is a pioneering initiative blending{" "}
-            <span className="text-blue-600 font-medium">Robotics Education</span> and{" "}
-            <span className="text-blue-600 font-medium">HR Solutions</span> —
-            empowering schools, colleges, and industries to embrace technology-driven learning
-            and human capital growth.
+            <strong>Balvion</strong> is a pioneering initiative blending 
+            <span className="text-blue-600 font-medium"> Robotics Education</span> and 
+            <span className="text-blue-600 font-medium"> HR Solutions</span>,
+            empowering schools, colleges, and industries to embrace technology-driven learning and human capital growth.
           </motion.p>
 
           <motion.div
@@ -75,7 +103,7 @@ export default function About() {
                 🎓 Robotics & STEM Education
               </h3>
               <p className="text-gray-700 leading-relaxed">
-                We inspire young minds by introducing STEM-based robotics learning in schools
+                 We inspire young minds by introducing STEM-based robotics learning in schools
                 and colleges. Our programs focus on hands-on innovation, coding, AI, and
                 problem-solving—preparing students for a technology-driven future.
               </p>
@@ -93,7 +121,9 @@ export default function About() {
             </div>
 
             <div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-2">🌍 Our Vision</h3>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+                🌍 Our Vision
+              </h3>
               <p className="text-gray-700 leading-relaxed">
                 To create a future where technology and talent work together — building smarter,
                 sustainable, and inclusive societies through education + employment synergy.
@@ -103,7 +133,7 @@ export default function About() {
         </div>
       </div>
 
-      {/* Decorative gradient background */}
+      {/* Soft Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-50 via-white to-blue-100 opacity-40 -z-10"></div>
     </section>
   );

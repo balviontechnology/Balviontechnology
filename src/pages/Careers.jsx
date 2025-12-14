@@ -79,7 +79,7 @@ Our expertise in robotics, STEM education, and experiential learning enables sch
         </div>
 
         {/* CTA */}
-        <motion.div
+        {/* <motion.div
           className="mt-20 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-12 px-6 rounded-3xl shadow-2xl"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -98,7 +98,7 @@ Our expertise in robotics, STEM education, and experiential learning enables sch
           >
             Send Your Resume
           </a>
-        </motion.div>
+        </motion.div> */}
       </div>
 
       {/* Background glow */}
