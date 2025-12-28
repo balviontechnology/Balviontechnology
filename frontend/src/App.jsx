@@ -1,20 +1,18 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-// 🌟 Components
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
-import Footer from "./components/Footer";
-
-// 🌍 Pages
 import About from "./pages/About";
 import Services from "./pages/Services";
-// import Events from "./pages/Events";
 import Insights from "./pages/Insights";
 import Careers from "./pages/Careers";
 import Contact from "./pages/Contact";
+import Footer from "./components/Footer";
+import ThankYou from "./pages/ThankYou";
 
-// 🌀 Smooth scroll to hash elements
+
+// Smooth scroll for hash links
 function ScrollToHashElement() {
   useEffect(() => {
     const handleHashChange = () => {
@@ -26,59 +24,60 @@ function ScrollToHashElement() {
         }
       }
     };
+
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
   return null;
 }
 
-// 🚀 Main App Component
-function App() {
+
+function LandingPage() {
   return (
-    <Router>
-      <ScrollToHashElement />
-      <div className="font-sans text-gray-900 bg-white overflow-hidden scroll-smooth">
-        {/* Navbar */}
-        <Navbar />
+    <div className="font-sans text-gray-900 bg-white overflow-hidden scroll-smooth">
 
-        {/* Hero Section with dynamic slides / video */}
-        <HeroSection />
+      <Navbar />
 
-        {/* About Section */}
-        <section id="about" className="py-20 bg-gray-50">
-          <About />
-        </section>
+      <HeroSection />
 
-        {/* Services Section */}
-        <section id="services" className="py-20 bg-white">
-          <Services />
-        </section>
+      <section id="about" className="py-20 bg-gray-50">
+        <About />
+      </section>
 
-        {/* Events Section */}
-        {/* <section id="events" className="py-20 bg-gray-50"> */}
-          {/* <Events /> */}
-        {/* </section> */}
+      <section id="services" className="py-20 bg-white">
+        <Services />
+      </section>
 
-        {/* Insights Section */}
-        <section id="insights" className="py-20 bg-white">
-          <Insights />
-        </section>
+      <section id="insights" className="py-20 bg-white">
+        <Insights />
+      </section>
 
-        {/* Careers Section */}
-        <section id="careers" className="py-20 bg-gray-50">
-          <Careers />
-        </section>
+      <section id="careers" className="py-20 bg-gray-50">
+        <Careers />
+      </section>
 
-        {/* Contact Section */}
-        <section id="contact" className="py-20 bg-white">
-          <Contact />
-        </section>
+      <section id="contact" className="py-20 bg-white">
+        <Contact />
+      </section>
 
-        {/* Footer */}
-        <Footer />
-      </div>
-    </Router>
+      <Footer />
+    </div>
   );
 }
 
-export default App;
+
+export default function App() {
+  return (
+    <Router>
+      <ScrollToHashElement />
+
+      <Routes>
+        {/* Main Website */}
+        <Route path="/" element={<LandingPage />} />
+
+        {/* Thank You Page */}
+        <Route path="/thank-you" element={<ThankYou />} />
+      </Routes>
+    </Router>
+  );
+}

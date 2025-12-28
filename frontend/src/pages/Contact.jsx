@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import gemImg from "../assets/GEM.jpeg";   // change name if needed
 import aimImg from "../assets/AIM.png";   // change name if needed
 
@@ -10,36 +12,75 @@ export default function Contact() {
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [resume, setResume] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-const handleSubmit = async (e) => {
+  const navigate = useNavigate();
+  // FILE VALIDATION
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.type !== "application/pdf") {
+      toast.error("Only PDF files are allowed.");
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("File size must be below 5MB.");
+      return;
+    }
+
+    setResume(file);
+    toast.success("Resume uploaded successfully");
+  };
+
+  // SUBMIT
+  const handleSubmit = async (e) => {
   e.preventDefault();
+  setLoading(true);
+
+  if (!resume) {
+    toast.error("Please upload your resume (PDF only, max 5MB).");
+    setLoading(false);
+    return;
+  }
 
   const formData = new FormData();
   formData.append("name", name);
   formData.append("email", email);
   formData.append("phone", phone);
   formData.append("message", message);
-  if (resume) {
-    formData.append("resume", resume);
+  formData.append("resume", resume);
+  formData.append("company", e.target.company.value); // honeypot
+
+  try {
+    const res = await fetch("https://balviontechnology.onrender.com/api/contact", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      toast.success("Message sent successfully! 🎉");
+
+      setName("");
+      setEmail("");
+      setPhone("");
+      setMessage("");
+      setResume(null);
+
+      setTimeout(() => {
+        navigate("/thank-you");
+      }, 2000);
+    } else {
+      toast.error(data.message || "Something went wrong");
+    }
+  } catch (err) {
+    toast.error("Server error. Please try again.");
   }
 
-  const res = await fetch("http://localhost:5000/api/contact", {
-    method: "POST",
-    body: formData, 
-  });
-
-  const data = await res.json();
-
-  if (data.success) {
-    alert("Message sent successfully!");
-    setName("");
-    setEmail("");
-    setPhone("");
-    setMessage("");
-    setResume(null);
-  } else {
-    alert("Error sending message");
-  }
+  setLoading(false);
 };
 
 
@@ -151,15 +192,26 @@ const handleSubmit = async (e) => {
               {/* Resume Upload */}
               <input
                 type="file"
-                onChange={(e) => setResume(e.target.files[0])}
+                accept="application/pdf"
+                onChange={handleFileChange}
                 className="border border-gray-300 rounded-xl px-4 py-3 bg-white"
               />
 
+              <input
+              type="text"
+              name="company"
+              style={{ display: "none" }}
+              tabIndex="-1"
+              autoComplete="off"
+            />
+
+
               <button
                 type="submit"
+                disabled={loading}
                 className="bg-blue-600 text-white rounded-xl px-6 py-3 font-semibold hover:bg-blue-700 transition"
               >
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
               </button>
             </form>
           </motion.div>
