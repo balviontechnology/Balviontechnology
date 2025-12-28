@@ -34,32 +34,51 @@ router.post("/", upload.single("resume"), async (req, res) => {
       return res.status(400).json({ success: false, message: "File too large" });
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  },
+  tls: {
+    rejectUnauthorized: false,
+    socketTimeout: 20000
+  }
+});
 
-    await transporter.sendMail({
-      from: `"Balvion Website" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
-      subject: "New Contact Form",
-      html: `
-        <b>Name:</b> ${name}<br/>
-        <b>Email:</b> ${email}<br/>
-        <b>Phone:</b> ${phone}<br/>
-        <b>Message:</b> ${message}
-      `,
-      attachments: [
-        {
-          filename: resume.originalname,
-          content: resume.buffer,
-        },
-      ],
-    });
 
-    res.json({ success: true });
+    try {
+  await transporter.sendMail({
+    from: `"Balvion Website" <${process.env.EMAIL_USER}>`,
+    to: process.env.EMAIL_USER,
+    subject: "New Contact Form",
+    html: `
+      <b>Name:</b> ${name}<br/>
+      <b>Email:</b> ${email}<br/>
+      <b>Phone:</b> ${phone}<br/>
+      <b>Message:</b> ${message}
+    `,
+    attachments: resume ? [
+      {
+        filename: resume.originalname,
+        content: resume.buffer,
+      }
+    ] : []
+  });
+
+  return res.json({ success: true });
+
+} catch (err) {
+  console.error("MAIL SEND FAILED:", err);
+
+  // Still return success so user doesn’t get stuck
+  return res.json({
+    success: true,
+    warning: "Mail failed but request received"
+  });
+}
+
   } catch (err) {
     console.log(err);
     res.status(500).json({ success: false, message: "Server Error" });
