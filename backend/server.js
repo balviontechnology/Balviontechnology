@@ -8,14 +8,13 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:3000",
-  methods: "POST",
+  origin: [
+    "http://localhost:3000",
+    "https://balviontechnology.vercel.app"
+  ],
+
 }));
-app.use(express.json());
-app.use("/uploads", express.static("uploads"));
 
 app.use("/api/contact", contactRoute);
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
-});
+app.listen(5000, () => console.log("Server running on port 5000"));
