@@ -54,7 +54,7 @@ export default function Contact() {
   formData.append("company", e.target.company.value); // honeypot
 
   try {
-    const res = await fetch("https://balviontechnology.onrender.com/api/contact", {
+    const res = await fetch("https://balviontechnology.onrender/api/contact", {
       method: "POST",
       body: formData,
     });
