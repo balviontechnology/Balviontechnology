@@ -9,7 +9,7 @@ import Insights from "./pages/Insights";
 import Careers from "./pages/Careers";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
-import ThankYou from "./pages/ThankYou";
+// import ThankYou from "./pages/ThankYou";
 
 
 // Smooth scroll for hash links
@@ -76,8 +76,9 @@ export default function App() {
         <Route path="/" element={<LandingPage />} />
 
         {/* Thank You Page */}
-        <Route path="/thank-you" element={<ThankYou />} />
+        {/* <Route path="/thank-you" element={<ThankYou />} /> */}
       </Routes>
     </Router>
   );
 }
+

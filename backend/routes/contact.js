@@ -1,87 +1,58 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import multer from "multer";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
+dotenv.config();
 const router = express.Router();
 
+const resend = new Resend(process.env.RESEND_API_KEY);
+console.log("API KEY?", process.env.RESEND_API_KEY);
+
+
 const upload = multer({
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fileSize: 5 * 1024 * 1024 }
 });
 
 router.post("/", upload.single("resume"), async (req, res) => {
   try {
-    const { name, email, phone, message } = req.body;
+    const { name, email, phone, message, company } = req.body;
     const resume = req.file;
 
-    // SECURITY VALIDATION
+    if (company) return res.json({ success: true }); // honeypot
+
     if (!resume)
       return res.status(400).json({ success: false, message: "Resume required" });
-
-    if (!name || !email || !message) {
-      return res.status(400).json({ success: false, message: "Missing fields" });
-    }
-
-    // honeypot trigger
-    if (req.body.company) {
-  return res.status(200).json({ success: true });
-}
-
 
     if (resume.mimetype !== "application/pdf")
       return res.status(400).json({ success: false, message: "PDF only allowed" });
 
-    if (resume.size > 5 * 1024 * 1024)
-      return res.status(400).json({ success: false, message: "File too large" });
+    // Send Email
+    await resend.emails.send({
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_TO,
+      subject: "New Contact Form Submission",
+      html: `
+        <p><b>Name:</b> ${name}</p>
+        <p><b>Email:</b> ${email}</p>
+        <p><b>Phone:</b> ${phone}</p>
+        <p><b>Message:</b> ${message}</p>
+      `,
+      attachments: [
+        {
+          filename: resume.originalname,
+          content: resume.buffer.toString("base64"),
+          path: undefined
+        }
+      ]
+    });
 
-    const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  tls: {
-    rejectUnauthorized: false,
-    socketTimeout: 20000
-  }
-});
-
-
-    try {
-  await transporter.sendMail({
-    from: `"Balvion Website" <${process.env.EMAIL_USER}>`,
-    to: process.env.EMAIL_USER,
-    subject: "New Contact Form",
-    html: `
-      <b>Name:</b> ${name}<br/>
-      <b>Email:</b> ${email}<br/>
-      <b>Phone:</b> ${phone}<br/>
-      <b>Message:</b> ${message}
-    `,
-    attachments: resume ? [
-      {
-        filename: resume.originalname,
-        content: resume.buffer,
-      }
-    ] : []
-  });
-
-  return res.json({ success: true });
-
-} catch (err) {
-  console.error("MAIL SEND FAILED:", err);
-
-  // Still return success so user doesn’t get stuck
-  return res.json({
-    success: true,
-    warning: "Mail failed but request received"
-  });
-}
+    return res.json({ success: true });
 
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ success: false, message: "Server Error" });
+    console.error(err);
+    return res.status(500).json({ success: false, message: "Server Error" });
   }
 });
 

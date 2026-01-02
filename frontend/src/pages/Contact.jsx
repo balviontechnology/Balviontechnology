@@ -71,7 +71,7 @@ export default function Contact() {
       setResume(null);
 
       setTimeout(() => {
-        navigate("/thank-you");
+        navigate("/");
       }, 2000);
     } else {
       toast.error(data.message || "Something went wrong");
