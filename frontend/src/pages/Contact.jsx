@@ -233,7 +233,7 @@ export default function Contact() {
               </div>
               <div className="flex items-center gap-3 text-gray-700">
                 <Mail className="text-blue-600" />
-                <span>balvion.tech@gmail.com</span>
+                <span>support@balviontech.com</span>
               </div>
               <div className="flex items-center gap-3 text-gray-700">
                 <MapPin className="text-blue-600" />

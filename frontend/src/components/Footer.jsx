@@ -26,7 +26,7 @@ const Footer = () => {
           <h2 className="text-xl font-semibold mb-4">Contact</h2>
           <p className="text-gray-400 text-sm">
             📍no 11, 9/8, Poompukar Nagar Street, VKL Nagar, Thudiyalur, Coimbatore, Tamil Nadu 641034 <br />
-            📧 balvion.tech@gmail.com <br />
+            📧 support@balviontech.com <br />
             ☎️ +91  8110054916
           </p>
         </div>
