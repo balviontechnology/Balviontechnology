@@ -18,11 +18,12 @@ app.get("/", (req,res)=>{
 
 app.use(cors({
   origin: [
-    "http://localhost:3000",
+    "https://balviontech.com",
+    "https://www.balviontech.com",
     "https://balviontechnology.vercel.app",
-    "https://www.balviontech.com"
+    "http://localhost:3000"
   ],
-  methods: ["GET","POST","OPTIONS"],
+  methods: "POST",
   allowedHeaders: ["Content-Type"]
 }));
 
