@@ -139,151 +139,145 @@ export default function Contact() {
           seeking HR services — we’d love to connect and collaborate.
         </motion.p>
 
-        {/* 2-column layout */}
-        <div className="grid md:grid-cols-2 gap-12">
-          
-          {/* Left - Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100"
-          >
-            <h3 className="text-2xl font-semibold text-gray-800 mb-6">
-              Send us a message
-            </h3>
+       {/* --- 2 Column Responsive Layout --- */}
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
 
-            <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
-              
-              <input
-                type="text"
-                placeholder="Your Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-                required
-              />
+  {/* --- Left: Contact Form --- */}
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6 }}
+    className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100"
+  >
+    <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center lg:text-left">
+      Send us a message
+    </h3>
 
-              <input
-                type="email"
-                placeholder="Your Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-                required
-              />
+    <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Your Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+        required
+      />
 
-              <input
-                type="tel"
-                placeholder="Phone Number"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-              />
+      <input
+        type="email"
+        placeholder="Your Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+        required
+      />
 
-              <textarea
-                placeholder="Your Message"
-                rows="4"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-              ></textarea>
+      <input
+        type="tel"
+        placeholder="Phone Number"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+        className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+      />
 
-              {/* Resume Upload */}
-              <input
-                type="file"
-                accept="application/pdf"
-                onChange={handleFileChange}
-                className="border border-gray-300 rounded-xl px-4 py-3 bg-white"
-              />
+      <textarea
+        placeholder="Your Message"
+        rows="4"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+      ></textarea>
 
-              <input
-              type="text"
-              name="company"
-              style={{ display: "none" }}
-              tabIndex="-1"
-              autoComplete="off"
-            />
+      <input
+        type="file"
+        accept="application/pdf"
+        onChange={handleFileChange}
+        className="border border-gray-300 rounded-xl px-4 py-3 bg-white"
+      />
 
+      {/* Honeypot (hidden) */}
+      <input
+        type="text"
+        name="company"
+        className="hidden"
+        tabIndex="-1"
+        autoComplete="off"
+      />
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="bg-blue-600 text-white rounded-xl px-6 py-3 font-semibold hover:bg-blue-700 transition"
-              >
-                {loading ? "Sending..." : "Send Message"}
-              </button>
-            </form>
-          </motion.div>
+      <button
+        type="submit"
+        disabled={loading}
+        className="bg-blue-600 text-white rounded-xl px-6 py-3 font-semibold hover:bg-blue-700 transition"
+      >
+        {loading ? "Sending..." : "Send Message"}
+      </button>
+    </form>
+  </motion.div>
 
-          {/* Right - Contact Info + Map */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col justify-between"
-          >
-            <div className="space-y-6 mb-8">
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">
-                Contact Information
-              </h3>
-              <div className="flex items-center gap-3 text-gray-700">
-                <Phone className="text-blue-600" />
-                <span>+91  8110054916</span>
-              </div>
-              <div className="flex items-center gap-3 text-gray-700">
-                <Mail className="text-blue-600" />
-                <span>support@balviontech.com</span>
-              </div>
-              <div className="flex items-center gap-3 text-gray-700">
-                <MapPin className="text-blue-600" />
-                <span>
-                  Balvion Technologies, no 11, 9/8, Poompukar Nagar Street, VKL Nagar, Thudiyalur, Coimbatore, Tamil Nadu 641034
-                </span>
-              </div>
-              <div className="flex items-center gap-3 text-gray-700">
-                <Clock className="text-blue-600" />
-                <span>Mon – Sat: 9:00 AM – 6:00 PM</span>
-              </div>
-            </div>
+  {/* --- Right: Contact Info & Map --- */}
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6 }}
+    className="flex flex-col gap-6"
+  >
+    <div className="space-y-5 bg-white rounded-3xl p-6 sm:p-8 shadow-xl border">
+      <h3 className="text-2xl font-semibold text-gray-800">
+        Contact Information
+      </h3>
 
-            {/* Map */}
-            <div className="rounded-3xl overflow-hidden shadow-xl border border-gray-100 h-64">
-              <iframe
-                title="Balvion Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.6080751288005!2d76.9413098!3d11.067982499999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8f728c1cbc9dd%3A0x2c6ffa4e28b7ef8d!2sBalvion%20Technologies!5e0!3m2!1sen!2sin!4v1764609111442!5m2!1sen!2sin"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
-          </motion.div>
-        </div>
+      <div className="flex items-center gap-3 text-gray-700">
+        <Phone className="text-blue-600" />
+        <span>+91 8110054916</span>
       </div>
 
+      <div className="flex items-center gap-3 text-gray-700">
+        <Mail className="text-blue-600" />
+        <span>support@balviontech.com</span>
+      </div>
+
+      <div className="flex items-start gap-3 text-gray-700">
+        <MapPin className="text-blue-600 mt-1" />
+        <span>
+          Balvion Technologies, No.11, 9/8 Poompukar Nagar Street,
+          VKL Nagar, Thudiyalur, Coimbatore, Tamil Nadu – 641034
+        </span>
+      </div>
+
+      <div className="flex items-center gap-3 text-gray-700">
+        <Clock className="text-blue-600" />
+        <span>Mon – Sat: 9:00 AM – 6:00 PM</span>
+      </div>
+    </div>
+
+    {/* Map */}
+    <div className="rounded-3xl overflow-hidden shadow-xl border h-60 sm:h-72 md:h-80">
+      <iframe
+        title="Balvion Location"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.6080751288005!2d76.9413098!3d11.067982499999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8f728c1cbc9dd%3A0x2c6ffa4e28b7ef8d!2sBalvion%20Technologies!5e0!3m2!1sen!2sin!4v1764609111442!5m2!1sen!2sin"
+        width="100%"
+        height="100%"
+        style={{ border: 0 }}
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </motion.div>
+</div>
+
+</div>
+
   {/* Bottom Images Section */}
-<div className="mt-20 grid md:grid-cols-2 gap-6">
-  {/* Left Image */}
-  <div className="w-full h-64 md:h-80 rounded-3xl overflow-hidden shadow-xl">
-    <img
-      src={gemImg}
-      alt="Gem"
-      className="w-full h-full object-cover"
-    />
+<div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div className="rounded-3xl overflow-hidden shadow-xl h-56 sm:h-64 md:h-72">
+    <img src={gemImg} alt="GEM" className="w-full h-full object-cover" />
   </div>
 
-  {/* Right Image */}
-  <div className="w-full h-64 md:h-80 rounded-3xl overflow-hidden shadow-xl flex items-center justify-center bg-white">
-    <img
-      src={aimImg}
-      alt="Aim"
-      className="object-contain w-full h-full p-6"
-    />
+  <div className="rounded-3xl overflow-hidden shadow-xl h-56 sm:h-64 md:h-72 bg-white flex items-center justify-center">
+    <img src={aimImg} alt="AIM" className="object-contain w-full h-full p-6" />
   </div>
 </div>
+
 
 
 
