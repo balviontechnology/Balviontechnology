@@ -427,12 +427,11 @@ export default function Home() {
         }
 
         .hero-flow-viewport {
-          width: 100vw;
-          overflow: hidden;
-          padding: 0.35rem 0;
-          -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-          mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-        }
+  width: 100vw;
+  overflow: hidden;
+  padding: 0.35rem 0;
+  /* mask-image removed */
+}
 
         .hero-flow-track {
           display: flex;
