@@ -1,286 +1,213 @@
 import { motion } from "framer-motion";
+import { Send, FileText, Phone, Mail } from "lucide-react";
 import { useState } from "react";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import gemImg from "../assets/GEM.jpeg";   // change name if needed
-import aimImg from "../assets/AIM.png";   // change name if needed
 
 export default function Contact() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
-  const [resume, setResume] = useState(null);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    company: "",
+    resume: null,
+  });
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
 
-  const navigate = useNavigate();
-  // FILE VALIDATION
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    if (file.type !== "application/pdf") {
-      toast.error("Only PDF files are allowed.");
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    if (name === "resume") {
+      setForm((prev) => ({ ...prev, resume: files?.[0] || null }));
       return;
     }
-
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error("File size must be below 5MB.");
-      return;
-    }
-
-    setResume(file);
-    toast.success("Resume uploaded successfully");
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // SUBMIT
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
+    e.preventDefault();
+    setLoading(true);
+    setStatus("");
 
-  if (!resume) {
-    toast.error("Please upload your resume (PDF only, max 5MB).");
-    setLoading(false);
-    return;
-  }
+    try {
+      const data = new FormData();
+      data.append("name", form.name);
+      data.append("email", form.email);
+      data.append("phone", form.phone);
+      data.append("message", form.message);
+      data.append("company", form.company);
+      if (form.resume) data.append("resume", form.resume);
 
-  const formData = new FormData();
-  formData.append("name", name);
-  formData.append("email", email);
-  formData.append("phone", phone);
-  formData.append("message", message);
-  formData.append("resume", resume);
-  formData.append("company", e.target.company.value); // honeypot
+      const res = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        body: data,
+      });
 
-  try {
-    const res = await fetch("https://api.balviontech.com/api/contact", {
-      method: "POST",
-      body: formData,
-    });
+      const result = await res.json();
 
-    const data = await res.json();
-
-    if (data.success) {
-      toast.success("Message sent successfully! 🎉");
-
-      setName("");
-      setEmail("");
-      setPhone("");
-      setMessage("");
-      setResume(null);
-
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
-    } else {
-      toast.error(data.message || "Something went wrong");
+      if (result.success) {
+        setStatus("Application sent successfully.");
+        setForm({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+          company: "",
+          resume: null,
+        });
+        e.target.reset();
+      } else {
+        setStatus(result.message || "Something went wrong.");
+      }
+    } catch (err) {
+      setStatus("Server error. Please try again.");
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    toast.error("Server error. Please try again.");
-  }
-
-  setLoading(false);
-};
-
+  };
 
   return (
     <section
       id="contact"
-      className="relative bg-gradient-to-b from-blue-50 via-white to-blue-100 py-24 overflow-hidden"
+      className="relative overflow-hidden bg-[linear-gradient(180deg,#f8fbff_0%,#eef7ff_100%)] px-6 py-24"
     >
-      <div className="absolute -top-20 -left-20 w-96 h-96 bg-blue-200 opacity-40 blur-3xl rounded-full animate-pulse"></div>
-      <div className="absolute -bottom-24 -right-20 w-80 h-80 bg-indigo-200 opacity-40 blur-3xl animate-pulse"></div>
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[8%] top-16 h-44 w-44 rounded-full bg-sky-200/30 blur-3xl" />
+        <div className="absolute right-[8%] bottom-10 h-52 w-52 rounded-full bg-cyan-200/30 blur-3xl" />
+      </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
-        {/* CTA Section */}
+      <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.95fr_1.05fr]">
         <motion.div
-          className="mt-10 mb-20 bg-gradient-to-r from-blue-600 to-indigo-600 
-                     text-white py-12 px-6 rounded-3xl shadow-2xl"
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="rounded-[34px] border border-sky-100/80 bg-white/85 p-8 shadow-[0_24px_70px_rgba(15,23,42,0.08)] backdrop-blur-xl md:p-12"
         >
-          <h3 className="text-2xl md:text-3xl font-bold mb-3">
-            Can’t find the right role?
-          </h3>
-
-          <p className="text-lg mb-6">
-            We’re always looking for passionate people to join our team.  
-            Drop us your CV and we’ll get in touch!
+          <p className="mb-4 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-sky-700">
+            Contact
           </p>
 
-          {/* <a
-            href="#contact"
-            className="bg-white text-blue-700 px-6 py-3 rounded-full 
-                       font-semibold hover:bg-blue-100 transition"
-          >
-            Send Your Resume
-          </a> */}
+          <h2 className="max-w-xl text-4xl font-black leading-tight tracking-[-0.05em] text-slate-900 md:text-5xl">
+            Send your application through the contact form.
+          </h2>
+
+          <p className="mt-6 max-w-xl text-base leading-8 text-slate-600 md:text-lg">
+            Share your details, resume, and message. Our team will review your
+            submission and get back when there is a suitable opportunity.
+          </p>
+
+          <div className="mt-10 space-y-4 text-sm text-slate-600">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-sky-50 text-sky-700">
+                <Phone size={18} />
+              </span>
+              <span>+91 81100 54916</span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-sky-50 text-sky-700">
+                <Mail size={18} />
+              </span>
+              <span>hr@balviontech.com</span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-sky-50 text-sky-700">
+                <FileText size={18} />
+              </span>
+              <span>PDF resume required</span>
+            </div>
+          </div>
         </motion.div>
 
-        <motion.h2
-          className="text-4xl md:text-5xl font-extrabold text-gray-900 text-center mb-8"
-          initial={{ opacity: 0, y: -20 }}
+        <motion.form
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          className="rounded-[34px] border border-sky-100/80 bg-white/88 p-8 shadow-[0_24px_70px_rgba(15,23,42,0.08)] backdrop-blur-xl md:p-12"
         >
-          Get in <span className="text-blue-600">Touch</span>
-        </motion.h2>
+          <div className="grid gap-5 md:grid-cols-2">
+            <input
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              required
+              placeholder="Your name"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-sky-400 placeholder:text-slate-400"
+            />
 
-        <motion.p
-          className="text-gray-600 text-center max-w-2xl mx-auto mb-16 text-lg"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-        >
-          Whether you’re a school looking for robotics education or a company
-          seeking HR services — we’d love to connect and collaborate.
-        </motion.p>
+            <input
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={handleChange}
+              required
+              placeholder="Email address"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-sky-400 placeholder:text-slate-400"
+            />
 
-       {/* --- 2 Column Responsive Layout --- */}
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
+            <input
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
+              required
+              placeholder="Phone number"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-sky-400 placeholder:text-slate-400"
+            />
 
-  {/* --- Left: Contact Form --- */}
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6 }}
-    className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100"
-  >
-    <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center lg:text-left">
-      Send us a message
-    </h3>
+            <input
+  name="resume"
+  type="file"
+  accept="application/pdf"
+  onChange={handleChange}
+  required
+  className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none file:mr-4 file:rounded-full file:border-0 file:bg-sky-50 file:px-4 file:py-2 file:font-semibold file:text-sky-700"
+/>
+          </div>
 
-    <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Your Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-        required
-      />
+          <textarea
+            name="message"
+            value={form.message}
+            onChange={handleChange}
+            required
+            rows={6}
+            placeholder="Tell us about your background or the role you’re interested in"
+            className="mt-5 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-sky-400 placeholder:text-slate-400"
+          />
 
-      <input
-        type="email"
-        placeholder="Your Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-        required
-      />
+          <input
+            type="text"
+            name="company"
+            value={form.company}
+            onChange={handleChange}
+            className="hidden"
+            tabIndex={-1}
+            autoComplete="off"
+          />
 
-      <input
-        type="tel"
-        placeholder="Phone Number"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-      />
+          <div className="mt-6 flex items-center justify-between gap-4">
+            <p className="text-sm text-slate-500">
+              Upload PDF only. Max 5MB.
+            </p>
 
-      <textarea
-        placeholder="Your Message"
-        rows="4"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-      ></textarea>
+            <button
+              type="submit"
+              disabled={loading}
+              className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-6 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(2,132,199,0.20)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              {loading ? "Sending..." : "Send Application"}
+              <Send size={16} />
+            </button>
+          </div>
 
-      <input
-        type="file"
-        accept="application/pdf"
-        onChange={handleFileChange}
-        className="border border-gray-300 rounded-xl px-4 py-3 bg-white"
-      />
-
-      {/* Honeypot (hidden) */}
-      <input
-        type="text"
-        name="company"
-        className="hidden"
-        tabIndex="-1"
-        autoComplete="off"
-      />
-
-      <button
-        type="submit"
-        disabled={loading}
-        className="bg-blue-600 text-white rounded-xl px-6 py-3 font-semibold hover:bg-blue-700 transition"
-      >
-        {loading ? "Sending..." : "Send Message"}
-      </button>
-    </form>
-  </motion.div>
-
-  {/* --- Right: Contact Info & Map --- */}
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6 }}
-    className="flex flex-col gap-6"
-  >
-    <div className="space-y-5 bg-white rounded-3xl p-6 sm:p-8 shadow-xl border">
-      <h3 className="text-2xl font-semibold text-gray-800">
-        Contact Information
-      </h3>
-
-      <div className="flex items-center gap-3 text-gray-700">
-        <Phone className="text-blue-600" />
-        <span>+91 8110054916</span>
+          {status && (
+            <p className="mt-4 text-sm font-medium text-slate-600">{status}</p>
+          )}
+        </motion.form>
       </div>
-
-      <div className="flex items-center gap-3 text-gray-700">
-        <Mail className="text-blue-600" />
-        <span>support@balviontech.com</span>
-      </div>
-
-      <div className="flex items-start gap-3 text-gray-700">
-        <MapPin className="text-blue-600 mt-1" />
-        <span>
-          Balvion Technologies, No.11, 9/8 Poompukar Nagar Street,
-          VKL Nagar, Thudiyalur, Coimbatore, Tamil Nadu – 641034
-        </span>
-      </div>
-
-      <div className="flex items-center gap-3 text-gray-700">
-        <Clock className="text-blue-600" />
-        <span>Mon – Sat: 9:00 AM – 6:00 PM</span>
-      </div>
-    </div>
-
-    {/* Map */}
-    <div className="rounded-3xl overflow-hidden shadow-xl border h-60 sm:h-72 md:h-80">
-      <iframe
-        title="Balvion Location"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.6080751288005!2d76.9413098!3d11.067982499999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8f728c1cbc9dd%3A0x2c6ffa4e28b7ef8d!2sBalvion%20Technologies!5e0!3m2!1sen!2sin!4v1764609111442!5m2!1sen!2sin"
-        width="100%"
-        height="100%"
-        style={{ border: 0 }}
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-      ></iframe>
-    </div>
-  </motion.div>
-</div>
-
-</div>
-
-  {/* Bottom Images Section */}
-<div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6">
-  <div className="rounded-3xl overflow-hidden shadow-xl h-56 sm:h-64 md:h-72">
-    <img src={gemImg} alt="GEM" className="w-full h-full object-cover" />
-  </div>
-
-  <div className="rounded-3xl overflow-hidden shadow-xl h-56 sm:h-64 md:h-72 bg-white flex items-center justify-center">
-    <img src={aimImg} alt="AIM" className="object-contain w-full h-full p-6" />
-  </div>
-</div>
-
-
-
-
     </section>
   );
 }

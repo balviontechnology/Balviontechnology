@@ -1,129 +1,161 @@
 import { motion } from "framer-motion";
-import { Brain, Users, Globe, Cpu, Briefcase, Rocket } from "lucide-react";
+import {
+  ArrowRight,
+  Cpu,
+  Brain,
+  Users,
+} from "lucide-react";
 
-import roboed from "../assets/roboed.jpg";       // Add your images
-import stemlab from "../assets/stem.jpg";
-import hiring from "../assets/talent.jpeg";
-import corporate from "../assets/corporate.webp";
-import consulting from "../assets/consulting.jpg";
-import innovation from "../assets/innovation.webp";
+import roboed from "../assets/roboed.jpg";
+import hiring from "../assets/stem.jpg";
+import stemlab from "../assets/talent.jpeg";
 
-export default function Services() {
-  const services = [
-    {
-      icon: <Cpu size={36} className="text-blue-600" />,
-      title: "Robotics Education",
-      desc: "Hands-on robotics programs for schools and colleges—empowering young minds with real-world innovation.",
-      category: "Education",
-      bg: roboed,
-    },
-    {
-      icon: <Brain size={36} className="text-blue-600" />,
-      title: "STEM Learning & AI Labs",
-      desc: "Integrate AI, coding, and STEM tools into your curriculum through engaging practical sessions.",
-      category: "Education",
-      bg: stemlab,
-    },
-    {
-      icon: <Users size={36} className="text-blue-600" />,
-      title: "Talent Acquisition",
-      desc: "Connecting the right people with the right opportunities through strategic hiring and HR partnerships.",
-      category: "HR Services",
-      bg: hiring,
-    },
-    {
-      icon: <Briefcase size={36} className="text-blue-600" />,
-      title: "Corporate Training",
-      desc: "Upskill teams in leadership, communication, and emerging technologies to boost workplace efficiency.",
-      category: "HR Services",
-      bg: corporate,
-    },
-    {
-      icon: <Globe size={36} className="text-blue-600" />,
-      title: "Consulting & Global HR",
-      desc: "Workforce solutions including placement, compliance, and international staffing support.",
-      category: "Consulting",
-      bg: consulting,
-    },
-    {
-      icon: <Rocket size={36} className="text-blue-600" />,
-      title: "Innovation & Research",
-      desc: "Collaborate with us on robotics R&D, automation, and future-driven engineering innovations.",
-      category: "Consulting",
-      bg: innovation,
-    },
-  ];
+const products = [
+  {
+    id: 0,
+    icon: Cpu,
+    title: "Robotics Education Kit",
+    desc: "A practical robotics learning product for schools, colleges, and training environments.",
+    tag: "Education Product",
+    image: roboed,
+    accent: "from-sky-700/80 via-cyan-700/50 to-slate-950/85",
+    points: ["Hands-on learning", "College ready", "Friendly setup"],
+  },
+  {
+    id: 1,
+    icon: Brain,
+    title: "STEM & AI Lab Program",
+    desc: "An interactive learning product designed for coding, STEM, and AI classroom experiences.",
+    tag: "STEM Product",
+    image: stemlab,
+    accent: "from-blue-700/80 via-sky-700/50 to-slate-950/85",
+    points: ["STEM modules", "AI exposure", "School integration"],
+  },
+  {
+    id: 2,
+    icon: Users,
+    title: "Custom Robotics Manufacturing",
+    desc: "A tailored robotics manufacturing solution for custom-built robots, product development, and real-world deployment.",
+    tag: "Manufacturing Product",
+    image: hiring,
+    accent: "from-cyan-700/80 via-teal-700/50 to-slate-950/85",
+    points: ["Custom builds", "Prototype to production", "Deployment ready"],
+  },
+];
 
+export default function Products() {
   return (
     <section
-      id="services"
-      className="relative py-24 bg-gradient-to-b from-white via-blue-50 to-white"
+      id="products"
+      className="relative z-10 overflow-hidden bg-[linear-gradient(180deg,#f8fbff_0%,#eef7ff_30%,#ffffff_100%)] px-6 py-24"
     >
-      <div className="max-w-7xl mx-auto px-6 text-center">
-        
-        {/* Title */}
-        <motion.h2
-          className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          Our <span className="text-blue-600">Services</span>
-        </motion.h2>
-
-        <motion.p
-          className="text-gray-600 max-w-2xl mx-auto mb-16 text-lg"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.7 }}
-        >
-          We deliver innovative education and workforce solutions that shape the next
-          generation of thinkers, builders, and leaders.
-        </motion.p>
-
-        {/* Service Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {services.map((s, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="relative p-8 rounded-3xl shadow-lg hover:shadow-2xl 
-                        border border-blue-100 hover:border-blue-400 
-                        transition-all duration-300 overflow-hidden"
-              style={{
-                backgroundImage: `url(${s.bg})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            >
-              {/* Overlay (light so image shows) */}
-              <div className="absolute inset-0 bg-white/40 backdrop-blur-sm"></div>
-
-              {/* Content */}
-              <div className="relative z-10">
-                <div className="flex justify-center mb-4">{s.icon}</div>
-
-                <h3 className="text-xl font-bold text-gray-900 mb-2 drop-shadow-md">
-                  {s.title}
-                </h3>
-
-                <p className="text-gray-700 text-base mb-3 drop-shadow-sm">
-                  {s.desc}
-                </p>
-
-                <span className="inline-block text-sm text-blue-700 font-semibold">
-                  {s.category}
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[8%] top-20 h-44 w-44 rounded-full bg-sky-200/40 blur-3xl" />
+        <div className="absolute right-[10%] bottom-10 h-52 w-52 rounded-full bg-cyan-200/40 blur-3xl" />
       </div>
 
-      {/* Decorative Circles */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-blue-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-      <div className="absolute bottom-20 right-10 w-40 h-40 bg-blue-300 rounded-full blur-3xl opacity-40 animate-pulse"></div>
+      <div className="relative mx-auto max-w-7xl">
+        <div className="mb-14 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="mb-4 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-sky-700">
+              Products
+            </p>
+
+            <h2 className="max-w-2xl text-4xl font-black leading-tight tracking-[-0.05em] text-slate-900 md:text-5xl">
+              Balvion's product experiences.
+            </h2>
+          </div>
+
+          <p className="max-w-xl text-base leading-8 text-slate-500 md:text-lg">
+            Three focused product cards built in the same visual style as your hero —
+            clean, premium, and easy to scan.
+          </p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {products.map((product, index) => {
+            const Icon = product.icon;
+
+            return (
+              <motion.article
+                key={product.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{
+                  duration: 0.55,
+                  delay: index * 0.08,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="group relative overflow-hidden rounded-[34px] border border-white/60 bg-white/50 shadow-[0_28px_70px_rgba(14,116,144,0.10)] backdrop-blur-xl"
+              >
+                <div className="relative h-[320px] overflow-hidden">
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                  />
+
+                  <div className={`absolute inset-0 bg-gradient-to-t ${product.accent}`} />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_15%,rgba(255,255,255,0.16),transparent_30%)]" />
+
+                  <div className="absolute inset-x-0 top-0 flex items-start justify-between p-6">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md">
+                      {product.tag}
+                    </div>
+
+                    <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-white/20 bg-white/12 text-white backdrop-blur-md shadow-[0_10px_30px_rgba(15,23,42,0.16)]">
+                      <Icon size={24} strokeWidth={1.9} />
+                    </div>
+                  </div>
+
+                  <div className="absolute inset-x-0 bottom-0 p-6 md:p-7">
+                    <h3 className="max-w-[12ch] text-[1.8rem] font-light leading-[1.02] tracking-[-0.05em] text-white md:text-[2rem]">
+                      {product.title}
+                    </h3>
+
+                    <p className="mt-4 max-w-[28ch] text-sm leading-7 text-white/88 md:text-[0.98rem]">
+                      {product.desc}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-5 p-6 md:p-7">
+                  <div className="flex flex-wrap gap-2">
+                    {product.points.map((point) => (
+                      <span
+                        key={point}
+                        className="rounded-full border border-sky-100 bg-sky-50/80 px-3 py-2 text-xs text-slate-700 backdrop-blur-sm"
+                      >
+                        {point}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+                        Product View
+                      </p>
+                      <p className="mt-1 text-sm text-slate-500">
+                        Designed for modern delivery and presentation.
+                      </p>
+                    </div>
+
+                    <a
+                      href="#contact"
+                      className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-5 py-3 text-sm font-bold text-white shadow-[0_14px_30px_rgba(2,132,199,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-sky-700"
+                    >
+                      Know Details
+                      <ArrowRight size={16} />
+                    </a>
+                  </div>
+                </div>
+              </motion.article>
+            );
+          })}
+        </div>
+      </div>
     </section>
   );
-}
+} 

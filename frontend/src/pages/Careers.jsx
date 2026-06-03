@@ -1,109 +1,88 @@
 import { motion } from "framer-motion";
-import { Briefcase, Users, ChevronRight } from "lucide-react";
+import { Briefcase, ChevronRight } from "lucide-react";
 
 export default function Careers() {
-  const openings = [
-    
-    {
-      title: "STEM Educator (Robotics)",
-      type: "Full Time • On-site",
-      desc: "Deliver hands-on STEM programs using robotics kits, Arduino, and AI tools for schools and training centers.",
-      icon: <Users className="text-green-500" size={28} />,
-    },
-    {
-      title: "HR SERVICES",
-      type: "Full Time • On-site",
-      desc: "Comprehensive workforce solutions including placement, compliance, and international staffing support.",
-      icon: <Users className="text-blue-500" size={28} />,
-    },
-    {
-      title: "Corporate Training",
-      type: "Full Time • On-site",
-      desc: "Upskill teams in leadership, communication, and emerging technologies to boost workplace efficiency.",
-      icon: <Briefcase className="text-pink-500" size={28} />,
-    },
-  ];
-
   return (
     <section
       id="careers"
-      className="relative py-24 bg-gradient-to-b from-white to-blue-50 overflow-hidden"
+      className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f4f8ff_100%)] px-6 py-24"
     >
-      <div className="max-w-7xl mx-auto px-6 text-center">
-        {/* Heading */}
-        <motion.h2
-          className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          Join Our <span className="text-blue-600">Innovators</span>
-        </motion.h2>
-
-        <motion.p
-          className="text-gray-600 max-w-2xl mx-auto mb-16 text-lg"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-        >
-         Our Presence Across India – Trusted Partner for Atal Labs
-
-Balvion Technologies is proudly associated with 500+ schools across Pan India as a direct vendor for the Atal Innovation Mission (AIM) under the Atal Tinkering Lab (ATL) program. Through this partnership, we support schools with end-to-end ATL services, including lab setup, equipment supply, technical training, maintenance, curriculum support, and continuous innovation guidance.
-
-Our expertise in robotics, STEM education, and experiential learning enables schools to build a strong innovation culture and empower students with hands-on skills in electronics, robotics, IoT, 3D printing, and AI. By collaborating with institutions nationwide, Balvion Technologies continues to strengthen India’s vision of fostering creativity, problem-solving, and future-ready talent.
-        </motion.p>
-
-        {/* Job Openings */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {openings.map((job, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="relative bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:border-blue-400 hover:shadow-2xl transition-all duration-300 text-left"
-            >
-              <div className="mb-4">{job.icon}</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-1">
-                {job.title}
-              </h3>
-              <p className="text-sm text-gray-500 mb-3">{job.type}</p>
-              <p className="text-gray-600 mb-4">{job.desc}</p>
-              <a
-                href="#contact"
-                className="inline-flex items-center text-blue-600 font-semibold hover:underline"
-              >
-                Apply Now <ChevronRight className="ml-1" size={18} />
-              </a>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* CTA */}
-        {/* <motion.div
-          className="mt-20 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-12 px-6 rounded-3xl shadow-2xl"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-        >
-          <h3 className="text-2xl md:text-3xl font-bold mb-3">
-            Can’t find the right role?
-          </h3>
-          <p className="text-lg mb-6">
-            We’re always looking for passionate people to join our team. Drop us
-            your CV and we’ll get in touch!
-          </p>
-          <a
-            href="#contact"
-            className="bg-white text-blue-700 px-6 py-3 rounded-full font-semibold hover:bg-blue-100 transition"
-          >
-            Send Your Resume
-          </a>
-        </motion.div> */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[8%] top-10 h-72 w-72 rounded-full bg-sky-200/30 blur-3xl" />
+        <div className="absolute bottom-0 right-[8%] h-72 w-72 rounded-full bg-indigo-200/30 blur-3xl" />
       </div>
 
-      {/* Background glow */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-blue-300 opacity-30 blur-3xl rounded-full animate-pulse"></div>
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-indigo-300 opacity-40 blur-3xl animate-pulse"></div>
+      <div className="relative mx-auto max-w-6xl">
+        <motion.div
+          initial={{ opacity: 0, y: 26 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="overflow-hidden rounded-[34px] border border-sky-100/80 bg-white/88 shadow-[0_24px_70px_rgba(15,23,42,0.08)] backdrop-blur-xl"
+        >
+          <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="p-8 md:p-12 lg:p-14">
+              <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-50 text-sky-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+                <Briefcase size={28} strokeWidth={1.9} />
+              </div>
+
+              <p className="mb-4 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-sky-700">
+                Careers
+              </p>
+
+              <h2 className="max-w-2xl text-4xl font-black leading-tight tracking-[-0.05em] text-slate-900 md:text-5xl">
+                Build with us. Share your application through the contact page.
+              </h2>
+
+              <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
+                Balvion Technologies works with schools, innovation platforms,
+                STEM environments, and workforce solutions across India. If you
+                want to contribute to robotics education, HR services, training,
+                or innovation-led programs, send your profile through our contact
+                page.
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <span className="rounded-full border border-sky-100 bg-sky-50 px-4 py-2 text-sm text-slate-700">
+                  Robotics Education
+                </span>
+                <span className="rounded-full border border-sky-100 bg-sky-50 px-4 py-2 text-sm text-slate-700">
+                  HR Services
+                </span>
+                <span className="rounded-full border border-sky-100 bg-sky-50 px-4 py-2 text-sm text-slate-700">
+                  Innovation Programs
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-center border-t border-sky-100/70 bg-[linear-gradient(180deg,#eff7ff_0%,#f8fbff_100%)] p-8 md:p-12 lg:border-l lg:border-t-0 lg:p-14">
+              <div>
+                <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-400">
+                  Next step
+                </p>
+
+                <h3 className="mt-3 text-2xl font-bold tracking-[-0.04em] text-slate-900 md:text-3xl">
+                  Go to the contact section and send your application.
+                </h3>
+
+                <p className="mt-4 max-w-md text-base leading-7 text-slate-600">
+                  Share your details, experience, and area of interest through
+                  the contact page. Our team will review your application and
+                  connect when there is a suitable opportunity.
+                </p>
+
+                <a
+                  href="#contact"
+                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-sky-600 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(2,132,199,0.20)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-sky-700"
+                >
+                  Go to Contact
+                  <ChevronRight size={18} />
+                </a>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }
