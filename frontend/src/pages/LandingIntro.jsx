@@ -34,8 +34,17 @@ export default function LandingIntro({ onExplore }) {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    let W = (canvas.width = window.innerWidth);
-    let H = (canvas.height = window.innerHeight);
+    const dpr = window.devicePixelRatio || 1;
+    let W = window.innerWidth;
+    let H = window.innerHeight;
+
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = `${W}px`;
+    canvas.style.height = `${H}px`;
+    ctx.scale(dpr, dpr);
+
+    let metrics = null;
 
     // Logo-inspired blue → cyan → ice blue → aqua-green palette
     const gradColors = [
@@ -53,8 +62,10 @@ export default function LandingIntro({ onExplore }) {
       return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     }
 
-    function getColor(px, py) {
-      const t = (px / W + py / H) / 2;
+    function getColor(px, py, currentMetrics) {
+      if (!currentMetrics) return `rgb(33, 99, 171)`;
+      // Localize gradient to the word "BALVION" boundary
+      const t = Math.max(0, Math.min(1, (px - currentMetrics.leftX) / currentMetrics.textWidth));
       const i = Math.floor(t * (gradColors.length - 1));
       const frac = t * (gradColors.length - 1) - i;
       const c1 = gradColors[Math.min(i, gradColors.length - 1)];
@@ -72,14 +83,15 @@ export default function LandingIntro({ onExplore }) {
       const rect = zone.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2 - 10;
-      const fontSize = Math.min(W * 0.13, 146);
+      // Increase font size on mobile to decrease gap
+      const fontSize = Math.min(Math.max(W * 0.17, 64), 146);
       const text = "BALVION";
 
       const off = document.createElement("canvas");
       const offCtx = off.getContext("2d");
       offCtx.font = `800 ${fontSize}px Orbitron, Arial`;
-      const metrics = offCtx.measureText(text);
-      const textWidth = metrics.width;
+      const metricsData = offCtx.measureText(text);
+      const textWidth = metricsData.width;
 
       return {
         cx,
@@ -93,7 +105,7 @@ export default function LandingIntro({ onExplore }) {
     }
 
     function buildParticles() {
-      const metrics = getTextMetrics();
+      metrics = getTextMetrics();
       if (!metrics) return;
 
       const off = document.createElement("canvas");
@@ -109,7 +121,8 @@ export default function LandingIntro({ onExplore }) {
       offCtx.fillText(metrics.text, metrics.cx, metrics.cy);
 
       const imageData = offCtx.getImageData(0, 0, W, H).data;
-      const gap = Math.max(4, Math.round(W / 220));
+      // Use higher particle density (smaller gap) on mobile to render smoothly and look high quality
+      const gap = W < 640 ? 2 : Math.max(3, Math.round(W / 220));
       const pts = [];
 
       for (let y = 0; y < H; y += gap) {
@@ -123,7 +136,8 @@ export default function LandingIntro({ onExplore }) {
               baseY: y,
               vx: 0,
               vy: 0,
-              size: gap * 0.48,
+              // Slightly larger size scale on mobile for premium density feel
+              size: gap * (W < 640 ? 0.62 : 0.48),
             });
           }
         }
@@ -238,7 +252,7 @@ export default function LandingIntro({ onExplore }) {
 
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-          ctx.fillStyle = getColor(p.x, p.y);
+          ctx.fillStyle = getColor(p.baseX, p.baseY, metrics);
           ctx.fill();
         });
 
@@ -248,10 +262,17 @@ export default function LandingIntro({ onExplore }) {
       rafRef.current = requestAnimationFrame(animate);
     }
 
-    const timer = setTimeout(() => {
+    const init = () => {
       buildParticles();
       animate();
-    }, 200);
+    };
+
+    // Wait for the fonts to be ready before drawing to avoid mismatched fallback font sizes
+    if (document.fonts) {
+      document.fonts.ready.then(init);
+    } else {
+      setTimeout(init, 200);
+    }
 
     const onMouseMove = (e) => {
       mouseRef.current.x = e.clientX;
@@ -265,8 +286,13 @@ export default function LandingIntro({ onExplore }) {
 
     const onResize = () => {
       cancelAnimationFrame(rafRef.current);
-      W = canvas.width = window.innerWidth;
-      H = canvas.height = window.innerHeight;
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width = `${W}px`;
+      canvas.style.height = `${H}px`;
+      ctx.scale(dpr, dpr);
       buildParticles();
       animate();
     };
@@ -276,7 +302,6 @@ export default function LandingIntro({ onExplore }) {
     window.addEventListener("resize", onResize);
 
     return () => {
-      clearTimeout(timer);
       cancelAnimationFrame(rafRef.current);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseleave", onMouseLeave);
@@ -286,20 +311,6 @@ export default function LandingIntro({ onExplore }) {
 
   return (
     <>
-      <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-      />
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossOrigin="true"
-      />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-      />
-
       <div
         className="relative min-h-screen overflow-hidden text-slate-800"
         style={{
@@ -361,7 +372,7 @@ export default function LandingIntro({ onExplore }) {
 
         <div className="relative z-20 flex flex-col items-center justify-center min-h-screen px-6 text-center">
           <div
-            className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[0.7rem] md:text-xs font-semibold uppercase tracking-[0.22em] mb-4"
+            className="inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[0.68rem] sm:text-[0.75rem] md:text-xs font-semibold uppercase tracking-[0.12em] sm:tracking-[0.22em] mb-3 text-center max-w-full"
             style={{
               borderColor: "rgba(56, 189, 248, 0.22)",
               background: "rgba(255,255,255,0.68)",
@@ -383,7 +394,7 @@ export default function LandingIntro({ onExplore }) {
           <div
             ref={zoneRef}
             className="w-full"
-            style={{ height: "clamp(140px, 20vw, 190px)" }}
+            style={{ height: "clamp(110px, 16vw, 190px)" }}
           />
 
           <div
@@ -393,7 +404,7 @@ export default function LandingIntro({ onExplore }) {
             style={{
               fontFamily: "Orbitron, sans-serif",
               fontWeight: 700,
-              fontSize: "clamp(0.95rem, 2vw, 1.55rem)",
+              fontSize: "clamp(1.15rem, 2.2vw, 1.55rem)",
               letterSpacing: showTech ? "0.42em" : "0.12em",
               textTransform: "uppercase",
               color: "#1678b8",
@@ -407,7 +418,7 @@ export default function LandingIntro({ onExplore }) {
           </div>
 
           <p
-            className="text-sm md:text-[1rem] font-normal max-w-lg leading-[1.85] mt-6"
+            className="text-[0.95rem] md:text-[1.08rem] font-normal max-w-lg leading-[1.85] mt-5"
             style={{
               color: "#334155",
               animation: "fadeUp 0.9s 0.5s both",

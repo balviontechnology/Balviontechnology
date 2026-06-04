@@ -142,7 +142,7 @@ export default function Products() {
                       href="#contact"
                       className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-5 py-3 text-sm font-bold text-white shadow-[0_14px_30px_rgba(2,132,199,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-sky-700"
                     >
-                      Know Details
+                      For more Details
                       <ArrowRight size={16} />
                     </a>
                   </div>

@@ -3,8 +3,8 @@ import { MessageCircle, Instagram, Linkedin } from "lucide-react";
 
 export default function SocialFlowBar() {
   return (
-    <div className="fixed left-0 top-1/2 z-50 hidden -translate-y-1/2 md:flex">
-      <div className="flex flex-col gap-2 rounded-r-xl border border-sky-100/80 bg-white/65 px-1.5 py-2 shadow-[0_12px_30px_rgba(14,116,144,0.08)] backdrop-blur-xl">
+    <div className="fixed left-1 bottom-6 z-50 flex md:left-0 md:top-1/2 md:bottom-auto md:-translate-y-1/2">
+      <div className="flex flex-col gap-2 rounded-full border border-sky-100/80 bg-white/65 px-2 py-2 shadow-[0_12px_30px_rgba(14,116,144,0.08)] backdrop-blur-xl md:flex-col md:rounded-r-xl md:rounded-l-none md:px-1.5 md:py-2">
         <motion.a
           href="https://wa.me/918110054916"
           target="_blank"

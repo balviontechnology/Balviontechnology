@@ -14,13 +14,13 @@ const quickReplies = [
   },
   {
     id: 2,
-    question: "Do you offer school robotics programs?",
+    question: "Do you offer school & colleges robotics programs?",
     answer:
       "Yes. We support schools and colleges with STEM education, lab setup, internship programs, certificate courses, project building, and curriculum support in AI and robotics.",
   },
   {
     id: 3,
-    question: "What kinds of robots do you provide?",
+    question: "What kinds of robots do you manufacture/provide?",
     answer:
       "We provide custom robots, imported robots based on requirements, serving robots, dining robots, and edtech robots for learning and demonstration use.",
   },

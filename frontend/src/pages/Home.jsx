@@ -427,20 +427,20 @@ export default function Home() {
         }
 
         .hero-flow-viewport {
-  width: 100vw;
-  overflow: hidden;
-  padding: 0.35rem 0;
-  /* mask-image removed */
-}
+        width: 100vw;
+        overflow: hidden;
+        padding: 0.35rem 0;
+        /* mask-image removed */
+      }
 
-        .hero-flow-track {
-          display: flex;
-          align-items: center;
-          width: max-content;
-          min-width: max-content;
-          animation: flowMarquee 16s linear infinite;
-          will-change: transform;
-        }
+      .hero-flow-track {
+        display: flex;
+        align-items: center;
+        width: max-content;
+        min-width: max-content;
+        animation: flowMarquee 16s linear infinite;
+        will-change: transform;
+      }
 
         .hero-flow-group {
           display: flex;
