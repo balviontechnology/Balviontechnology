@@ -66,10 +66,6 @@ export default function Products() {
             </h2>
           </div>
 
-          <p className="max-w-xl text-base leading-8 text-slate-500 md:text-lg">
-            Three focused product cards built in the same visual style as your hero —
-            clean, premium, and easy to scan.
-          </p>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
