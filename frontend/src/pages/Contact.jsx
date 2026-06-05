@@ -37,8 +37,8 @@ export default function Contact() {
       data.append("company", form.company);
       if (form.resume) data.append("resume", form.resume);
 
-      const baseUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
-      const res = await fetch(`${baseUrl}/api/contact`, {
+      // The API URL is hardcoded to the live backend server
+      const res = await fetch("https://api.balviontech.com/api/contact", {
         method: "POST",
         body: data,
       });
