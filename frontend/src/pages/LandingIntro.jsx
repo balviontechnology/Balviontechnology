@@ -473,7 +473,7 @@ export default function LandingIntro({ onExplore }) {
               (label) => (
                 <span
                   key={label}
-                  className="text-[0.72rem] font-medium tracking-wide"
+                  className="text-[0.85rem] md:text-[0.72rem] font-medium tracking-wide"
                   style={{
                     color: "#64748b",
                     display: "flex",

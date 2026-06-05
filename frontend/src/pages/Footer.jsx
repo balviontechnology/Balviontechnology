@@ -139,7 +139,7 @@ export default function Footer() {
               Follow updates, events, and innovation stories across our social channels.
             </p>
 
-            <div className="mt-5 flex justify-end gap-3 lg:justify-start">
+            <div className="mt-5 flex justify-center gap-3 lg:justify-start">
               {footerLinks.social.map((item) => {
                 const Icon = item.icon;
                 return (
