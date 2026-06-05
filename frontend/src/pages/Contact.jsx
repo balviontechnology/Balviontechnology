@@ -37,7 +37,8 @@ export default function Contact() {
       data.append("company", form.company);
       if (form.resume) data.append("resume", form.resume);
 
-      const res = await fetch("http://localhost:5000/api/contact", {
+      const baseUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
+      const res = await fetch(`${baseUrl}/api/contact`, {
         method: "POST",
         body: data,
       });

@@ -1,4 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import aimLogo from "../assets/aim.jpg";
+import indiaLogo from "../assets/india.png";
+import { School } from "lucide-react";
 
 export default function LandingIntro({ onExplore }) {
   const canvasRef = useRef(null);
@@ -370,7 +373,7 @@ export default function LandingIntro({ onExplore }) {
           className="absolute inset-0 z-10 pointer-events-none"
         />
 
-        <div className="relative z-20 flex flex-col items-center justify-center min-h-screen px-6 text-center">
+        <div className="relative z-20 flex flex-col items-center justify-center min-h-screen px-6 text-center pt-24 md:pt-16">
           <div
             className="inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[0.68rem] sm:text-[0.75rem] md:text-xs font-semibold uppercase tracking-[0.12em] sm:tracking-[0.22em] mb-3 text-center max-w-full"
             style={{
@@ -466,36 +469,27 @@ export default function LandingIntro({ onExplore }) {
           </button>
 
           <div
-            className="mt-10 flex items-center gap-6 flex-wrap justify-center"
+            className="mt-10 flex flex-col items-center gap-5 md:flex-row md:gap-8 flex-wrap justify-center w-full mx-auto"
             style={{ animation: "fadeUp 0.9s 0.95s both" }}
           >
-            {["AIM Certified Partner", "500+ Schools", "Pan India"].map(
-              (label) => (
-                <span
-                  key={label}
-                  className="text-[0.85rem] md:text-[0.72rem] font-medium tracking-wide"
-                  style={{
-                    color: "#64748b",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                  }}
-                >
-                  <span
-                    style={{
-                      display: "inline-block",
-                      width: 5,
-                      height: 5,
-                      borderRadius: "50%",
-                      background:
-                        "linear-gradient(135deg,#21a1d8,#6ee7f9,#43d9c4)",
-                      flexShrink: 0,
-                    }}
-                  />
-                  {label}
-                </span>
-              )
-            )}
+            {[
+              { label: "AIM Certified Partner", img: aimLogo },
+              { label: "500+ Schools", icon: School },
+              { label: "Pan India", img: indiaLogo },
+            ].map((item) => (
+              <span
+                key={item.label}
+                className="animate-border-glow text-[0.95rem] md:text-[0.9rem] font-medium tracking-wide flex items-center justify-center gap-3 md:gap-4 bg-white/80 px-5 py-2.5 md:px-6 md:py-3 rounded-full border border-sky-200 backdrop-blur-sm"
+                style={{ color: "#64748b" }}
+              >
+                {item.img ? (
+                  <img src={item.img} alt={item.label} className="w-6 h-6 md:w-8 md:h-8 object-contain" />
+                ) : (
+                  <item.icon className="w-6 h-6 md:w-8 md:h-8 text-sky-500" />
+                )}
+                {item.label}
+              </span>
+            ))}
           </div>
         </div>
 
@@ -503,6 +497,19 @@ export default function LandingIntro({ onExplore }) {
           @keyframes fadeUp {
             from { opacity: 0; transform: translateY(16px); }
             to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes borderGlow {
+            0%, 100% { 
+              box-shadow: 0 0 4px rgba(56, 189, 248, 0.2); 
+              border-color: rgba(186, 230, 253, 0.6); 
+            }
+            50% { 
+              box-shadow: 0 0 18px rgba(56, 189, 248, 0.9), inset 0 0 8px rgba(56, 189, 248, 0.3); 
+              border-color: rgba(56, 189, 248, 1); 
+            }
+          }
+          .animate-border-glow {
+            animation: borderGlow 2.5s infinite ease-in-out;
           }
         `}</style>
       </div>
