@@ -17,7 +17,7 @@ const upload = multer({
 
 router.post("/", upload.single("resume"), async (req, res) => {
   try {
-    const { name, email, phone, message, company } = req.body;
+    const { name, email, phone, message, company } = req.body || {};
     const resume = req.file;
 
     if (company) return res.json({ success: true }); // honeypot
@@ -28,8 +28,7 @@ router.post("/", upload.single("resume"), async (req, res) => {
     if (resume.mimetype !== "application/pdf")
       return res.status(400).json({ success: false, message: "PDF only allowed" });
 
-    // Send Email
-    await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_TO,
       subject: "New Contact Form Submission",
@@ -47,6 +46,11 @@ router.post("/", upload.single("resume"), async (req, res) => {
         }
       ]
     });
+
+    if (error) {
+      console.error("Resend API Error:", error);
+      return res.status(500).json({ success: false, message: error.message });
+    }
 
     return res.json({ success: true });
 

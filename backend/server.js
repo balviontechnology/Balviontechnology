@@ -22,11 +22,15 @@ app.use(cors({
     "https://balviontech.com",
     "https://www.balviontech.com",
     "https://balviontechnology.vercel.app",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "http://localhost:3001",
   ],
-  methods: "POST",
-  allowedHeaders: ["Content-Type"]
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // 🚨 Apply rate limit ONLY to API routes
 const contactLimiter = rateLimit({

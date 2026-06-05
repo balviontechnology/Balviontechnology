@@ -4,7 +4,6 @@ import { Lightbulb, Newspaper, Brain, ArrowRight } from "lucide-react";
 const insights = [
   {
     title: "How Robotics is Transforming STEM Learning in Schools",
-    date: "Oct 2025",
     desc: "Discover how hands-on robotics education is inspiring creativity, teamwork, and practical problem-solving among young learners.",
     icon: Lightbulb,
     iconClass: "text-amber-500",
@@ -12,7 +11,6 @@ const insights = [
   },
   {
     title: "AI & HR: The Future of Intelligent Hiring",
-    date: "Sep 2025",
     desc: "See how automation, AI-assisted screening, and smarter workflows are reshaping talent acquisition and employee engagement.",
     icon: Brain,
     iconClass: "text-sky-600",
@@ -20,7 +18,6 @@ const insights = [
   },
   {
     title: "Innovation Lab Platforms for Future-Ready Institutions",
-    date: "Aug 2025",
     desc: "Explore CoE, Balvion Robotics Lab, ATL, STEM Innovation Lab, and AI, IoT & Automation Lab models for modern campuses.",
     icon: Newspaper,
     iconClass: "text-emerald-500",
