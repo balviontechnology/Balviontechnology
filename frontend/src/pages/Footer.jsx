@@ -88,7 +88,7 @@ export default function Footer() {
               <div className="flex items-center gap-3">
                 <Mail size={16} className="text-sky-600" />
                 <a href="mailto:admin@balviontech.com" className="hover:text-sky-700">
-                  support@balviontech.com
+                  admin@balviontech.com
                 </a>
               </div>
             </div>
