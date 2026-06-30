@@ -7,7 +7,7 @@ import {
   Instagram,
   MessageCircle,
 } from "lucide-react";
-import logo from "../assets/logo2-r.png";
+import logo from "../assets/logo2.png";
 import logoName from "../assets/logoname.png";
 
 const footerLinks = {

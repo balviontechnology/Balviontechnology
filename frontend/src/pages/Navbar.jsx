@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "../assets/logo2-r.png";
+import logo from "../assets/logo2.png";
 import logoName from "../assets/logoname.png";
 import logoNameMobile from "../assets/logoname.png";
 

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles } from "lucide-react";
 
 import chatGif from "../assets/chat.gif";
-import logo from "../assets/logo2-r.png";
+import logo from "../assets/logo2.png";
 
 const quickReplies = [
   {
